@@ -22,7 +22,7 @@ def add_rule(record, rules)
       bag_word_index = contained_color_substring.index(' bag')
       quantity = contained_color_substring[0].to_i
       contained_color = contained_color_substring[2..bag_word_index - 1]
-      rules[container_color] << {quantity => contained_color}
+      rules[container_color] << {quantity: quantity, color: contained_color}
     end
   end
   rules
@@ -33,7 +33,7 @@ def traverse(rules, color)
 
   contained_bags_count = 1
   rules[color].each do |contained_quantity_and_color|
-    contained_bags_count += contained_quantity_and_color.keys[0] * traverse(rules, contained_quantity_and_color.values[0])
+    contained_bags_count += contained_quantity_and_color[:quantity] * traverse(rules, contained_quantity_and_color[:color])
   end
 
   contained_bags_count
